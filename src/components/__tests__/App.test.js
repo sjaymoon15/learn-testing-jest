@@ -1,17 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
 import App from '../App';
-import { exportAllDeclaration } from '@babel/types';
+import CommentBox from '../CommentBox';
+import CommentList from '../CommentList';
 
 // jsdom simulates how a browser behaves in testing
-it('shows a commet box', () => {
-  // this is a fake div. not a real div in browser.
-  // jsdom helps us with testing by "create" "div"
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+it('shows a comment box', () => {
+  const wrapper = shallow(<App />);
 
-  // look inside the div and checks to see if the commentbox is in there
-  expect(div.innerHTML).toContain('Comment Box');
-  // look at the div and remove (unmount) App component (or any components) inside the div
-  ReactDOM.unmountComponentAtNode(div);
+  expect(wrapper.find(CommentBox).length).toEqual(1);
+});
+
+it('shows a comment list', () => {
+  const wrapper = shallow(<App />);
+
+  expect(wrapper.find(CommentList).length).toEqual(1);
 });
