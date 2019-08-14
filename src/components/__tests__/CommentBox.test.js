@@ -17,25 +17,23 @@ it('has a text area and a button', () => {
   expect(wrapper.find('button').length).toEqual(1);
 });
 
-it('has a text area that users can type in', () => {
-  wrapper
-    .find('textarea')
-    .simulate('change', { target: { value: 'new comment' } });
+describe('the text area', () => {
+  beforeEach(() => {
+    wrapper
+      .find('textarea')
+      .simulate('change', { target: { value: 'new comment' } });
+    // instead of waiting for the rerender to finish
+    // will force the component to update by using update() from enzyme
+    wrapper.update();
+  });
 
-  // instead of waiting for the rerender to finish
-  // will force the component to update by using update() from enzyme
-  wrapper.update();
-  expect(wrapper.find('textarea').prop('value')).toEqual('new comment');
-});
+  it('has a text area that users can type in', () => {
+    expect(wrapper.find('textarea').prop('value')).toEqual('new comment');
+  });
 
-it('has a text area that should be emptied when the input is submitted', () => {
-  wrapper
-    .find('textarea')
-    .simulate('change', { target: { value: 'new comment' } });
-  wrapper.update();
-  expect(wrapper.find('textarea').prop('value')).toEqual('new comment');
-
-  wrapper.find('form').simulate('submit');
-  wrapper.update();
-  expect(wrapper.find('textarea').prop('value')).toEqual('');
+  it('has a text area that should be emptied when the input is submitted', () => {
+    wrapper.find('form').simulate('submit');
+    wrapper.update();
+    expect(wrapper.find('textarea').prop('value')).toEqual('');
+  });
 });
