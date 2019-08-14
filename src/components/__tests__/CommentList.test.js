@@ -20,4 +20,11 @@ beforeEach(() => {
   );
 });
 
-it('creates one LI per comment', () => {});
+it('creates one LI per comment', () => {
+  expect(wrapper.find('li').length).toEqual(2);
+});
+
+it('shows the text for each comment', () => {
+  expect(wrapper.render().text()).toContain('Comment 1');
+  expect(wrapper.render().text()).toContain('Comment 2');
+});
