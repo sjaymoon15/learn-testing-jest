@@ -1,11 +1,16 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import CommentBox from 'components/CommentBox';
+import Root from 'Root';
 
 let wrapper;
 
 beforeEach(() => {
-  wrapper = mount(<CommentBox />); // using mount for education purpose. shallow should also work fine.
+  wrapper = mount(
+    <Root>
+      <CommentBox />
+    </Root>
+  ); // using mount for education purpose. shallow should also work fine.
 });
 
 afterEach(() => {
